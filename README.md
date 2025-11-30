@@ -1,5 +1,8 @@
 # Ruby DSL for Claude Code hooks
 
+> [!NOTE]
+> **This is a fork** of [gabriel-dehan/claude_hooks](https://github.com/gabriel-dehan/claude_hooks) with fixes for Claude Code's JSON API contract. See [CHANGELOG](CHANGELOG.md) for details.
+
 > [!IMPORTANT]
 > v1.0.0 just released and is introducing breaking changes. Please read the [CHANGELOG](CHANGELOG.md) for more information.
 

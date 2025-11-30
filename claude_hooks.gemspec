@@ -5,19 +5,21 @@ require_relative "lib/claude_hooks/version"
 Gem::Specification.new do |spec|
   spec.name = "claude_hooks"
   spec.version = ClaudeHooks::VERSION
-  spec.authors = ["Gabriel Dehan"]
+  spec.authors = ["Gabriel Dehan", "Kyle Snowschwartz"]
   spec.email = ["dehan.gabriel@gmail.com"]
 
   spec.summary = "Ruby DSL for creating Claude Code hooks"
-  spec.description = "A Ruby DSL framework for creating Claude Code hooks with composable hook scripts that enable teams to easily implement logging, security checks, and workflow automation."
-  spec.homepage = "https://github.com/gabriel-dehan/claude_hooks"
+  spec.description = "A Ruby DSL framework for creating Claude Code hooks with composable hook scripts that enable teams to easily implement logging, security checks, and workflow automation. Fork with JSON API fixes."
+  spec.homepage = "https://github.com/kylesnowschwartz/claude_hooks"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2.0"
 
-  spec.metadata["allowed_push_host"] = "https://rubygems.org"
+  # Block publishing - this is a vendored fork
+  spec.metadata["allowed_push_host"] = "none"
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
   spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"
+  spec.metadata["upstream_uri"] = "https://github.com/gabriel-dehan/claude_hooks"
 
   # Specify which files should be added to the gem when it is released.
   spec.files = Dir.chdir(__dir__) do

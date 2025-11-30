@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-12-01 (Fork)
+
+This release is from [kylesnowschwartz/claude_hooks](https://github.com/kylesnowschwartz/claude_hooks), a fork of the original [gabriel-dehan/claude_hooks](https://github.com/gabriel-dehan/claude_hooks).
+
+### Fixed
+
+- **JSON API contract compliance** - All decision-making hooks now correctly use exit 0 + stdout for the advanced JSON API
+  - `Stop` - Changed from exit 2 to exit 0 when using `decision: "block"`
+  - `SubagentStop` - Inherits fix from Stop
+  - `PostToolUse` - Changed from exit 2 to exit 0 when using `decision: "block"`
+  - `UserPromptSubmit` - Changed from exit 2 to exit 0 when using `decision: "block"`
+  - `PreToolUse` - Changed from exit 1/2 to exit 0 for all `permissionDecision` values
+
+### Notes
+
+- Per Claude Code docs: "JSON output is only processed when the hook exits with code 0"
+- Previous behavior caused JSON responses to be ignored, falling back to stderr text
+- Reference: https://github.com/anthropics/claude-code/issues/10875
+
 ## [1.0.1] - 2025-10-13
 
 ### Documentation
