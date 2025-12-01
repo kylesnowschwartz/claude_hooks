@@ -36,7 +36,7 @@ A Ruby DSL (Domain Specific Language) for creating Claude Code hooks. This will 
 ## 🚀 Quick Start
 
 > [!TIP]
-> Examples are available in [`example_dotclaude/hooks/`](example_dotclaude/hooks/). The GithubGuard in particular is a good example of a solid hook. You can also check [Kyle's hooks for some great examples](https://github.com/kylesnowschwartz/dotfiles/blob/main/claude/hooks)
+> Examples are available in [`example_dotclaude/hooks/`](example_dotclaude/hooks/). The GithubGuard in particular is a good example of a solid hook. You can also check [SimpleClaude's hooks for some great examples](https://github.com/kylesnowschwartz/SimpleClaude/tree/main/plugins/sc-hooks)
 
 Here's how to create a simple hook:
 
