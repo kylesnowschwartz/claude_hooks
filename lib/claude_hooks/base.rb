@@ -13,12 +13,12 @@ module ClaudeHooks
 
     # Override in subclasses to specify hook type
     def self.hook_type
-      raise NotImplementedError, "Subclasses must define hook_type"
+      raise NotImplementedError, 'Subclasses must define hook_type'
     end
 
     # Override in subclasses to specify hook-specific input fields
     def self.input_fields
-      raise NotImplementedError, "Subclasses must define input_fields"
+      raise NotImplementedError, 'Subclasses must define input_fields'
     end
 
     def hook_type
@@ -26,6 +26,7 @@ module ClaudeHooks
     end
 
     attr_reader :config, :input_data, :output_data, :output, :logger
+
     def initialize(input_data = {})
       @config = Configuration
       @input_data = input_data
@@ -42,7 +43,7 @@ module ClaudeHooks
 
     # Main execution method - override in subclasses
     def call
-      raise NotImplementedError, "Subclasses must implement the call method"
+      raise NotImplementedError, 'Subclasses must implement the call method'
     end
 
     def stringify_output
@@ -52,7 +53,7 @@ module ClaudeHooks
     def output_and_exit
       @output.output_and_exit
     end
-    
+
     # === COMMON INPUT DATA ACCESS ===
 
     def session_id
@@ -83,12 +84,12 @@ module ClaudeHooks
 
       begin
         File.read(transcript_path)
-      rescue => e
+      rescue StandardError => e
         log "Error reading transcript file at #{transcript_path}: #{e.message}", level: :error
         ''
       end
     end
-    alias_method :transcript, :read_transcript
+    alias transcript read_transcript
 
     # === COMMON OUTPUT HELPERS ===
 
@@ -151,8 +152,8 @@ module ClaudeHooks
     end
 
     # Supports both single messages and blocks for multiline logging
-    def log(message = nil, level: :info, &block)
-      @logger.log(message, level: level, &block)
+    def log(message = nil, level: :info, &)
+      @logger.log(message, level: level, &)
     end
 
     private
@@ -161,9 +162,9 @@ module ClaudeHooks
       expected_fields = COMMON_INPUT_FIELDS + self.class.input_fields
       missing_fields = expected_fields - @input_data.keys
 
-      unless missing_fields.empty?
-        log "Missing required input fields for #{hook_type}: #{missing_fields.join(', ')}", level: :warn
-      end
+      return if missing_fields.empty?
+
+      log "Missing required input fields for #{hook_type}: #{missing_fields.join(', ')}", level: :warn
     end
   end
 end

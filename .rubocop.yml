@@ -1,0 +1,34 @@
+# frozen_string_literal: true
+
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.2
+
+# Metrics cops - arbitrary numbers that don't improve code quality
+Metrics/ClassLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+
+# Documentation cops - code should be self-documenting
+Style/Documentation:
+  Enabled: false
+
+# Line length - 120 is fine, some lines just need to be longer
+Layout/LineLength:
+  Max: 150
+
+# These are in the gemspec, that's fine
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+Gemspec/RequireMFA:
+  Enabled: false

@@ -17,8 +17,8 @@ rescue StandardError => e
     {
       continue: false,
       stopReason: "Error in PreToolUse hook, #{e.message}, #{e.backtrace.join("\n")}",
-      suppressOutput: false,
-    },
+      suppressOutput: false
+    }
   )
   # Allow anyway, to not block developers if there is an issue with the hook
   exit 1

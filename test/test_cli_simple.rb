@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'minitest/autorun'
 require 'stringio'
@@ -13,7 +14,7 @@ class TestCLISimple < Minitest::Test
       'hook_event_name' => 'Notification',
       'message' => 'Test CLI notification'
     }
-    
+
     # Create a working test hook
     @test_hook = Class.new(ClaudeHooks::Notification) do
       def call
@@ -24,7 +25,7 @@ class TestCLISimple < Minitest::Test
   end
 
   # === Core Functionality Tests ===
-  
+
   def test_run_hook_with_provided_data
     result = ClaudeHooks::CLI.run_hook(@test_hook, @test_input_data)
     assert_kind_of(Hash, result)
@@ -50,20 +51,20 @@ class TestCLISimple < Minitest::Test
       input_data['custom_field'] = 'added'
       modified = true
     end
-    
+
     assert(modified)
     assert_kind_of(Hash, result)
   end
 
   # === Error Handling Tests ===
-  
+
   def test_run_hook_handles_hook_errors
     error_hook = Class.new(ClaudeHooks::Notification) do
       def call
         raise StandardError, 'Test error'
       end
     end
-    
+
     # Should exit with status 1 on error
     assert_raises(SystemExit) do
       ClaudeHooks::CLI.run_hook(error_hook, @test_input_data)

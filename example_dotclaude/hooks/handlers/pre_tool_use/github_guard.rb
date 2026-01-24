@@ -22,7 +22,7 @@ class GithubGuard < ClaudeHooks::PreToolUse
       ],
       pr_draft_required: %w[
         mcp__github__create_pull_request
-      ],
+      ]
     },
 
     # Bash command patterns (gh & github)
@@ -37,26 +37,26 @@ class GithubGuard < ClaudeHooks::PreToolUse
         /\Agit\s+clean\s+-[fd]/,
         /\Agit\s+reflog\s+expire/,
         /\Agit\s+filter-branch/,
-        /\Agit\s+checkout\s+--\s+\./,
+        /\Agit\s+checkout\s+--\s+\./
       ],
       requires_permission: [
         /\Agh\s+api/,
         /\Agit\s+branch\s+(-D|-d|--delete)/,
         /\Agit\s+rebase\s+(master|main)/,
         /\Agit\s+commit\s+--amend/,
-        /\Agit\s+rebase\s+-i/,
+        /\Agit\s+rebase\s+-i/
       ],
       owner_restricted_pr: [
         'gh pr merge',
         'gh pr edit',
         'gh pr close',
         'gh pr ready',
-        'gh pr lock',
+        'gh pr lock'
       ],
       pr_draft_required: [
-        'gh pr create',
-      ],
-    },
+        'gh pr create'
+      ]
+    }
   }.freeze
 
   CURRENT_USER = begin
@@ -65,7 +65,7 @@ class GithubGuard < ClaudeHooks::PreToolUse
 
     {
       name: github_user_data['name'] || git_user.strip,
-      login: github_user_data['login'] || '',
+      login: github_user_data['login'] || ''
     }
   rescue StandardError => e
     log "Error fetching github user data, #{e.message}, make sure Github CLI is installed and you are logged in.",
@@ -121,7 +121,7 @@ class GithubGuard < ClaudeHooks::PreToolUse
     if user_owns_pr?(pr_owner)
       approve_tool!("PR ##{pr_number} belongs to current user (#{pr_owner})")
     else
-      block_with_tip!("Cannot execute '#{context}' - PR ##{pr_number} belongs to #{pr_owner}, you are #{CURRENT_USER[:login]}") # rubocop:disable Layout/LineLength
+      block_with_tip!("Cannot execute '#{context}' - PR ##{pr_number} belongs to #{pr_owner}, you are #{CURRENT_USER[:login]}")
     end
   end
 
@@ -247,7 +247,7 @@ if __FILE__ == $PROGRAM_NAME
       'cwd' => Dir.pwd,
       'hook_event_name' => 'PreToolUse',
       'tool_name' => 'mcp__github__create_pull_request',
-      'tool_input' => { 'draft' => false },
+      'tool_input' => { 'draft' => false }
     )
   end
 end

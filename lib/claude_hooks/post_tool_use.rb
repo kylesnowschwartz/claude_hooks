@@ -37,7 +37,7 @@ module ClaudeHooks
       @output_data['reason'] = reason
     end
 
-    def approve_tool!(reason = '')
+    def approve_tool!(_reason = '')
       @output_data['decision'] = nil
       @output_data['reason'] = nil
     end
@@ -48,6 +48,6 @@ module ClaudeHooks
         'additionalContext' => context
       }
     end
-    alias_method :add_context!, :add_additional_context!
+    alias add_context! add_additional_context!
   end
 end

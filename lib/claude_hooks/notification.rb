@@ -17,7 +17,7 @@ module ClaudeHooks
     def message
       @input_data['message']
     end
-    alias_method :notification_message, :message
+    alias notification_message message
 
     def notification_type
       @input_data['notification_type'] || @input_data['notificationType']

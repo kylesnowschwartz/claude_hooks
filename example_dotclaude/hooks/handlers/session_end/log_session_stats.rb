@@ -1,14 +1,15 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'claude_hooks'
 
 class LogSessionStats < ClaudeHooks::SessionEnd
   def call
     log "Logging session statistics for session #{session_id}"
-    
+
     # Generate session statistics
     stats = gather_session_stats
-    
+
     # Log detailed statistics
     log <<~STATS
       === Session Statistics ===
@@ -19,10 +20,10 @@ class LogSessionStats < ClaudeHooks::SessionEnd
       Transcript Path: #{transcript_path}
       ===========================
     STATS
-    
+
     # Log session summary
     log format_session_summary(stats)
-    
+
     output
   end
 
@@ -38,12 +39,12 @@ class LogSessionStats < ClaudeHooks::SessionEnd
 
   def calculate_session_duration
     # Example: could read session start time from transcript or file
-    "Unknown (would need session start time)"
+    'Unknown (would need session start time)'
   end
 
   def get_transcript_size
     return 0 unless transcript_path && File.exist?(transcript_path)
-    
+
     File.size(transcript_path)
   rescue StandardError => e
     log "Error getting transcript size: #{e.message}", level: :warn
@@ -56,7 +57,7 @@ class LogSessionStats < ClaudeHooks::SessionEnd
 end
 
 # CLI testing support
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   ClaudeHooks::CLI.test_runner(LogSessionStats) do |input_data|
     input_data['reason'] ||= 'other'
     input_data['transcript_path'] ||= '/tmp/test_transcript'

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'minitest/autorun'
 require 'stringio'
@@ -19,7 +20,7 @@ class TestErrorHandlingSimple < Minitest::Test
         raise StandardError, 'Intentional error'
       end
     end
-    
+
     @valid_hook = Class.new(ClaudeHooks::Notification) do
       def call
         @output_data
@@ -28,7 +29,7 @@ class TestErrorHandlingSimple < Minitest::Test
   end
 
   # === Basic Error Handling Tests ===
-  
+
   def test_hook_execution_error_in_call_method
     input_data = {
       'session_id' => 'error-test',
@@ -37,7 +38,7 @@ class TestErrorHandlingSimple < Minitest::Test
       'hook_event_name' => 'Notification',
       'message' => 'test message'
     }
-    
+
     hook = @error_hook.new(input_data)
     assert_raises(StandardError) { hook.call }
   end
@@ -47,7 +48,7 @@ class TestErrorHandlingSimple < Minitest::Test
       'session_id' => 'error-test',
       'message' => 'test message'
     }
-    
+
     # Should exit with status 1 on hook execution error
     assert_raises(SystemExit) do
       ClaudeHooks::CLI.run_hook(@error_hook, input_data)
@@ -60,7 +61,7 @@ class TestErrorHandlingSimple < Minitest::Test
       'cwd' => '/test',
       'hook_event_name' => 'Test'
     }
-    
+
     # Should create hook but log warning (not raise error)
     hook = @valid_hook.new(incomplete_data)
     assert_instance_of(@valid_hook, hook)
@@ -79,7 +80,7 @@ class TestErrorHandlingSimple < Minitest::Test
       'cwd' => nil,
       'hook_event_name' => nil
     }
-    
+
     hook = @valid_hook.new(input_with_nils)
     assert_equal('claude-default-session', hook.session_id)
     assert_nil(hook.transcript_path)
@@ -94,7 +95,7 @@ class TestErrorHandlingSimple < Minitest::Test
       'cwd' => '',
       'hook_event_name' => ''
     }
-    
+
     hook = @valid_hook.new(input_with_empty)
     assert_equal('', hook.session_id) # Empty string doesn't fall back to default
     assert_equal('', hook.transcript_path)
@@ -104,7 +105,7 @@ class TestErrorHandlingSimple < Minitest::Test
 
   def test_invalid_hook_type_for_output_factory
     invalid_data = { 'continue' => true }
-    
+
     # Should raise error for unknown hook type
     assert_raises(ArgumentError) do
       ClaudeHooks::Output::Base.for_hook_type('UnknownHookType', invalid_data)
@@ -115,7 +116,7 @@ class TestErrorHandlingSimple < Minitest::Test
     assert_raises(NotImplementedError) do
       ClaudeHooks::Base.hook_type
     end
-    
+
     assert_raises(NotImplementedError) do
       ClaudeHooks::Base.input_fields
     end
@@ -128,11 +129,11 @@ class TestErrorHandlingSimple < Minitest::Test
         @output_data
       end
     end
-    
+
     input_data = { 'session_id' => 'test' }
     hook = hook_with_error.new(input_data)
     hook.call
-    
+
     # Test that the output contains error information
     output = hook.output
     refute(output.continue?)
@@ -145,8 +146,8 @@ class TestErrorHandlingSimple < Minitest::Test
     assert_raises(TypeError) do
       @valid_hook.new([])
     end
-    
-    # Pass string instead of hash should raise NoMethodError when calling hash methods  
+
+    # Pass string instead of hash should raise NoMethodError when calling hash methods
     assert_raises(NoMethodError) do
       @valid_hook.new('not a hash')
     end
@@ -155,7 +156,7 @@ class TestErrorHandlingSimple < Minitest::Test
   def test_output_merge_with_incompatible_types
     output1 = ClaudeHooks::Output::PreToolUse.new({ 'continue' => true })
     output2 = ClaudeHooks::Output::UserPromptSubmit.new({ 'continue' => true })
-    
+
     # Merging different output types should work but may have unexpected results
     # The merge method should handle this gracefully
     assert_nothing_raised do

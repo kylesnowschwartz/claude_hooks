@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'json'
 require_relative '../handlers/session_end/cleanup_handler'
@@ -6,7 +7,7 @@ require_relative '../handlers/session_end/log_session_stats'
 
 begin
   # Read input from stdin
-  input_data = JSON.parse(STDIN.read)
+  input_data = JSON.parse($stdin.read)
 
   # Initialize handlers
   cleanup_handler = CleanupHandler.new(input_data)
@@ -24,12 +25,11 @@ begin
 
   # Output result and exit with appropriate code
   merged_output.output_and_exit
-
 rescue StandardError => e
-  STDERR.puts JSON.generate({
-    continue: false,
-    stopReason: "Hook execution error: #{e.message}",
-    suppressOutput: false
-  })
+  warn JSON.generate({
+                       continue: false,
+                       stopReason: "Hook execution error: #{e.message}",
+                       suppressOutput: false
+                     })
   exit 2
 end

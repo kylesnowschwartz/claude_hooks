@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../lib/claude_hooks/configuration'
 require 'fileutils'
@@ -11,7 +12,7 @@ class TestConfigMerging
   def self.run
     setup_test_environment
 
-    puts "=== Testing Config Merging ==="
+    puts '=== Testing Config Merging ==='
     test_config_existence
     test_default_merge_strategy
     test_home_precedence_strategy
@@ -21,17 +22,15 @@ class TestConfigMerging
     puts "\n=== Merge test completed! ==="
   end
 
-  private
-
   def self.setup_test_environment
     # Create test project structure
     FileUtils.mkdir_p("#{TEST_PROJECT_DIR}/.claude/config")
 
     # Create test project config
     project_config = {
-      "projectSpecific" => true,
-      "logDirectory" => "project_logs",
-      "userName" => "project_user"
+      'projectSpecific' => true,
+      'logDirectory' => 'project_logs',
+      'userName' => 'project_user'
     }
     File.write("#{TEST_PROJECT_DIR}/.claude/config/config.json", JSON.pretty_generate(project_config))
 
@@ -55,7 +54,7 @@ class TestConfigMerging
   def self.test_default_merge_strategy
     puts "\n--- Default merge strategy (project takes precedence) ---"
     config = ClaudeHooks::Configuration.config
-    puts "Merged config:"
+    puts 'Merged config:'
     config.each { |k, v| puts "  #{k}: #{v}" }
   end
 
@@ -64,7 +63,7 @@ class TestConfigMerging
     ENV['RUBY_CLAUDE_HOOKS_CONFIG_MERGE_STRATEGY'] = 'home'
     ClaudeHooks::Configuration.reload!
     config = ClaudeHooks::Configuration.config
-    puts "Merged config with home precedence:"
+    puts 'Merged config with home precedence:'
     config.each { |k, v| puts "  #{k}: #{v}" }
   end
 
@@ -76,4 +75,4 @@ class TestConfigMerging
   end
 end
 
-TestConfigMerging.run if __FILE__ == $0
+TestConfigMerging.run if __FILE__ == $PROGRAM_NAME

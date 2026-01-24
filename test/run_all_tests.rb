@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # Simple test runner for claude_hooks configuration tests
 
-puts "🧪 Running Claude Hooks Configuration Tests"
-puts "=" * 50
+puts '🧪 Running Claude Hooks Configuration Tests'
+puts '=' * 50
 
 test_files = [
   'test_config.rb',
@@ -12,7 +13,7 @@ test_files = [
   'test_output_classes.rb',
   'test_hook_classes.rb',
   'test_base.rb',
-  'test_cli_simple.rb',  
+  'test_cli_simple.rb',
   'test_full_integration.rb',
   'test_logger.rb',
   'test_error_handling_simple.rb'
@@ -20,10 +21,10 @@ test_files = [
 
 test_files.each do |test_file|
   puts "\n🔍 Running #{test_file}..."
-  puts "-" * 30
-  
+  puts '-' * 30
+
   success = system("ruby #{File.join(__dir__, test_file)}")
-  
+
   if success
     puts "✅ #{test_file} passed"
   else

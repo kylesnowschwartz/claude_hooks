@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'claude_hooks'
 
 # Hook script that appends rules to user prompt as additional context.
 # A great way to make sure specific context is added with each user prompt.
 class AppendRules < ClaudeHooks::UserPromptSubmit
-
   def call
-    log "Executing AppendRules hook"
+    log 'Executing AppendRules hook'
 
     # Read the rules
     rules = read_rules
@@ -16,7 +16,7 @@ class AppendRules < ClaudeHooks::UserPromptSubmit
       add_additional_context!(rules)
       log "Successfully added rules as additional context (#{rules.length} characters)"
     else
-      log "No rule content found", level: :warn
+      log 'No rule content found', level: :warn
     end
 
     output
@@ -41,7 +41,7 @@ class AppendRules < ClaudeHooks::UserPromptSubmit
 end
 
 # If this file is run directly (for testing), call the hook script
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   ClaudeHooks::CLI.test_runner(AppendRules) do |input_data|
     input_data['session_id'] = 'session-id-override-01'
   end

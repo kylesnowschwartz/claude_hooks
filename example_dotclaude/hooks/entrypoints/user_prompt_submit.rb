@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # Example of the NEW simplified entrypoint pattern using output objects
 # Compare this to the existing user_prompt_submit.rb to see the difference!
@@ -13,7 +14,7 @@ require_relative '../handlers/user_prompt_submit/log_user_prompt'
 
 begin
   # Read input from stdin
-  input_data = JSON.parse(STDIN.read)
+  input_data = JSON.parse($stdin.read)
 
   # Execute all hook scripts
   append_rules = AppendRules.new(input_data)
@@ -28,13 +29,12 @@ begin
   )
 
   merged_output.output_and_exit
-
 rescue StandardError => e
   # Same simple error pattern
-  STDERR.puts JSON.generate({
-    continue: false,
-    stopReason: "Hook execution error: #{e.message} #{e.backtrace.join("\n")}",
-    suppressOutput: false
-  })
+  warn JSON.generate({
+                       continue: false,
+                       stopReason: "Hook execution error: #{e.message} #{e.backtrace.join("\n")}",
+                       suppressOutput: false
+                     })
   exit 2
 end

@@ -1,26 +1,27 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../../../../lib/claude_hooks'
 
 class CleanupHandler < ClaudeHooks::SessionEnd
   def call
     log "Session ended with reason: #{reason}"
-    
+
     case reason
     when 'clear'
-      log "Performing cleanup after /clear command"
+      log 'Performing cleanup after /clear command'
       cleanup_temp_files
     when 'logout'
-      log "Performing cleanup after logout"
+      log 'Performing cleanup after logout'
       save_session_state
     when 'prompt_input_exit'
-      log "User exited during prompt input"
+      log 'User exited during prompt input'
       save_partial_state
     else
-      log "General session cleanup"
+      log 'General session cleanup'
       general_cleanup
     end
-    
+
     output
   end
 
@@ -48,7 +49,7 @@ class CleanupHandler < ClaudeHooks::SessionEnd
 end
 
 # CLI testing support
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   ClaudeHooks::CLI.test_runner(CleanupHandler) do |input_data|
     input_data['reason'] ||= 'other'
   end

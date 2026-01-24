@@ -1,20 +1,19 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../lib/claude_hooks/configuration'
 
 # Test basic configuration functionality
 class TestConfiguration
   def self.run
-    puts "=== Testing Configuration with no CLAUDE_PROJECT_DIR ==="
+    puts '=== Testing Configuration with no CLAUDE_PROJECT_DIR ==='
     test_no_project_dir
-    
+
     puts "\n=== Testing with CLAUDE_PROJECT_DIR set ==="
     test_with_project_dir
-    
+
     puts "\n=== Test completed successfully! ==="
   end
-
-  private
 
   def self.test_no_project_dir
     # Clear any existing CLAUDE_PROJECT_DIR to simulate the case where it's not set
@@ -54,4 +53,4 @@ class TestConfiguration
   end
 end
 
-TestConfiguration.run if __FILE__ == $0
+TestConfiguration.run if __FILE__ == $PROGRAM_NAME

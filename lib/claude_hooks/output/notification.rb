@@ -12,11 +12,11 @@ module ClaudeHooks
       end
 
       # === MERGE HELPER ===
-      
+
       def self.merge(*outputs)
-        merged = super(*outputs)
+        merged = super
         new(merged.data)
-      end 
+      end
     end
   end
 end
