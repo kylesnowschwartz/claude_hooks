@@ -9,7 +9,8 @@ Gem::Specification.new do |spec|
   spec.email = ['dehan.gabriel@gmail.com']
 
   spec.summary = 'Ruby DSL for creating Claude Code hooks'
-  spec.description = 'A Ruby DSL framework for creating Claude Code hooks with composable hook scripts that enable teams to easily implement logging, security checks, and workflow automation. Fork with JSON API fixes.'
+  spec.description = 'A Ruby DSL framework for creating Claude Code hooks with composable hook scripts ' \
+                     'for logging, security checks, and workflow automation. Fork with JSON API fixes.'
   spec.homepage = 'https://github.com/kylesnowschwartz/claude_hooks'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.2.0'

@@ -33,7 +33,7 @@ class LogSessionStats < ClaudeHooks::SessionEnd
     {
       duration: calculate_session_duration,
       end_time: Time.now,
-      transcript_size: get_transcript_size
+      transcript_size: transcript_size
     }
   end
 
@@ -42,7 +42,7 @@ class LogSessionStats < ClaudeHooks::SessionEnd
     'Unknown (would need session start time)'
   end
 
-  def get_transcript_size
+  def transcript_size
     return 0 unless transcript_path && File.exist?(transcript_path)
 
     File.size(transcript_path)

@@ -7,7 +7,8 @@ require 'open3'
 
 # GitHub Guard hook to prevent unauthorized or dangerous GitHub/Git actions
 class GithubGuard < ClaudeHooks::PreToolUse
-  BLOCKED_TOOL_TIP = 'If they are sure they want to proceed, the user should run the command themselves using `!` (e.g. `!gh pr merge`, `!git push --force`, etc...)'
+  BLOCKED_TOOL_TIP = 'If they are sure they want to proceed, the user should run the command ' \
+                     'themselves using `!` (e.g. `!gh pr merge`, `!git push --force`, etc...)'
 
   RULES = {
     # MCP GitHub tools
